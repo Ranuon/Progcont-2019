@@ -3,50 +3,51 @@
 #include <string.h>
 int main()
 {
-    int n=0;
-    int* kimenet=(int*)malloc(sizeof(int)*n);
-    char c;
+    char str[5];
     int i;
-    int j;
-    while(!feof(stdin))
+    int x = 0;
+    int sor=0;
+    int n=0;
+    int*kimenet=(int*)malloc(sizeof(int)*n);
+    while(fgets(str,5,stdin)!=NULL)
     {
-        for(i=1;i<4;i++)
+        sor=sor+3;
+        for(i=0;i<strlen(str)-1;i++)
         {
-            int j=3;
-            while(j>=1)
+            if(str[i]=='o')
             {
-                scanf("%c",&c);
-                if(c=='o')
-                {
-                    if(i==1)
-                    {
-                    n++;
-                    kimenet=realloc(kimenet,n*sizeof(int));
-                    kimenet[n-1]=3-j;
-                    }
-                    if(i==2)
-                    {
-                    n++;
-                    kimenet=realloc(kimenet,n*sizeof(int));
-                    kimenet[n-1]=3+3-j;
-                    }
-                    if(i==3)
-                    {
-                    n++;
-                    kimenet=realloc(kimenet,n*sizeof(int));
-                    kimenet[n-1]=6+3-j;
-                    }
-                }
-                j--;
+                n++;
+                kimenet=realloc(kimenet,n*sizeof(int));
+                kimenet[n-1]=sor-2+i;
+            }
+            else
+            {
+                x++;
             }
         }
-        printf("%d",n);
-        for(i=0;i<n;i++)
+        if(sor >= 9)
         {
-            printf("%d",kimenet[i]);
+            if(x==9)
+            {
+                putchar('0');
+            }
+            putchar('\n');
+            for(i=0;i<n;i++)
+            {
+                if(i!=n-1)
+                {
+                    printf("%d",kimenet[i]);
+                }
+                if(i==n-1)
+                {
+                    printf("%d\n",kimenet[i]);
+                }
+            }
+            n=0;
+            kimenet=realloc(kimenet,n*sizeof(int));
+            sor = 0;
+            x = 0;
         }
-        n=0;
-        kimenet=realloc(kimenet,n*sizeof(int));
     }
     return 0;
 }
